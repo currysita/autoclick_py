@@ -1,0 +1,86 @@
+{
+    "name": "自動返信ワークフロー",
+    "timeout": 10,
+    "states": [
+      {
+        "id": "start",
+        "description": "開始状態 - 新着メッセージを確認",
+        "image": "images/indicators/new_indicator.png",
+        "timeout": 5,
+        "actions": [
+          {
+            "type": "click",
+            "offset_x": 0,
+            "offset_y": 0,
+            "next_state": "open_reply"
+          }
+        ],
+        "fallback": "check_event_indicator"
+      },
+      {
+        "id": "check_event_indicator",
+        "description": "イベントインジケーターを確認",
+        "image": "images/indicators/event_indicator.png",
+        "timeout": 3,
+        "actions": [
+          {
+            "type": "click",
+            "offset_x": 0,
+            "offset_y": 0,
+            "next_state": "open_reply"
+          }
+        ],
+        "fallback": "start"
+      },
+      {
+        "id": "open_reply",
+        "description": "返信バーを開く",
+        "image": "images/reply/reply_bar.png",
+        "timeout": 5,
+        "actions": [
+          {
+            "type": "click",
+            "offset_x": 0,
+            "offset_y": 0,
+            "next_state": "select_reply"
+          }
+        ],
+        "fallback": "check_back_arrow"
+      },
+      {
+        "id": "select_reply",
+        "description": "返信選択肢を選ぶ",
+        "image": "images/reply/reply_options.png",
+        "timeout": 3,
+        "actions": [
+          {
+            "type": "click",
+            "offset_x": 0,
+            "offset_y": 50,
+            "next_state": "check_back_arrow"
+          }
+        ],
+        "fallback": "check_back_arrow"
+      },
+      {
+        "id": "check_back_arrow",
+        "description": "前の画面に戻る矢印を確認",
+        "image": "images/navigation/back_arrow.png",
+        "timeout": 10,
+        "actions": [
+          {
+            "type": "click",
+            "offset_x": 0,
+            "offset_y": 0,
+            "next_state": "start"
+          }
+        ],
+        "on_timeout": "start"
+      },
+      {
+        "id": "end",
+        "is_terminal": true,
+        "description": "ワークフロー終了"
+      }
+    ]
+  }
